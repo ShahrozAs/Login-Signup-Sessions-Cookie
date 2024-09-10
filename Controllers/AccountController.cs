@@ -126,6 +126,11 @@ namespace Identity_in_WebApi.Controllers
         public string Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            var storeCookie = Request.Cookies.Keys;
+            foreach (var cookies in storeCookie)
+            {
+                Response.Cookies.Delete(cookies);
+            }
             HttpContext.Session.Remove("Email");
             return "Logout Successfully";
         }
